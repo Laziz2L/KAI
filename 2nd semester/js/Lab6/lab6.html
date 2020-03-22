@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+</head>
+<body>
+    <script>
+        function goods(name, price, year) { 
+            if (arguments.length != 3) {
+                throw new Error("Число аргументов функции-конструктора родителя не соответствует числу свойств создаваемого объекта");
+            }
+            if ((typeof (name) != "string" || typeof (price) != "number" || typeof (year) != "number")) {
+                throw new Error("В функцию-конструктор родительского класса передали неверные аргументы");
+            }
+            this.name = name;
+            this.price = price;
+            this.getYear = function () { return year };
+            this.checkForTV = function () {
+                if (name.includes("TV")) {
+                    this.price *= 1.2;
+                }
+            }
+        }
+        goods.prototype.getAge = function () {
+            var currentDate = new Date();
+            var currentYear = currentDate.getFullYear();
+            return (currentYear - this.getYear());
+        }
+        function subGoods(name, price, year, month, day) {
+            if (arguments.length != 5) {
+                throw new Error("Число аргументов функции-конструктора потомка не соответствует числу свойств создаваемого объекта");
+            }
+            if ((typeof (name) != "string" || typeof (price) != "number" || typeof (year) != "number" || typeof (month) != "number" || typeof (day) != "number")) {
+                throw new Error("В функцию-конструктор класса потомка передали неверные аргументы");
+            }
+            this.month = month;
+            this.day = day;
+            goods.call(this, name, price, year);
+            this.getExactAge = function () {
+                
+                var day = new Date(this.getYear(),this.month,this.day,0,0,0,0);
+                var currentDate = new Date();
+                return Math.floor((currentDate - day) / 86400000);
+            }
+        }
+        subGoods.prototype = Object.create(goods.prototype);
+        var testGoods = new goods("aliTVps-1324",1790,2016);
+        var testSubGoods = new subGoods("aliTVps-2745",2490,2017,1,1);
+        testGoods.checkForTV();
+        console.log("Год выпуска товара-родителя: "+testGoods.getYear());
+        console.log("Товар-родитель был выпущен столько лет назад: "+testGoods.getAge())
+        console.log("Цена товара-родителя: "+testGoods.price);
+        console.log("Товар-потомок был выпущен столько времени назад: "+testSubGoods.getExactAge());
+        testSubGoods.checkForTV();
+        console.log("Цена товара-потомка: "+testSubGoods.price);
+    </script>
+    <script>
+    </script>
+</body>
+</html>

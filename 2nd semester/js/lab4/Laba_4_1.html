@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>
+
+    </title>
+</head>
+
+<body>
+
+</body>
+<script type="text/javascript"> /*  параметры из URI: ../lab4js/test1.html?x0=300&y0=300 */ 
+    var x0 = Number(getUrlParameter("x0")); 
+    var y0 = Number(getUrlParameter("y0")); 
+    var xk = Number(getUrlParameter("xk")); 
+    var xgk = Number(getUrlParameter("xgk")); 
+    //graph(x0, y0);
+    draw_grid(x0,y0,xgk);
+    //line(x0,y0,0,0,200,200);
+    graph(foo,x0,y0,xk); 
+    //line(200, 300, 400, 300); 
+    //linev(300, 100, 310);
+    function foo(x) { 
+        return Math.pow(Math.log(1-x),2);
+    }
+    function graph(foo, x0, y0,xk) { 
+        var xstr = ""; 
+        var xstr0 = "<img src='pixel.png' width=2 height=2 style='position:absolute;";
+        var x = -3*xk; 
+        var y = foo(x);
+        var ey = 400/6;
+        var ex = 400/6/xk;
+        while (x <= 3*xk) {
+            y = foo(x+0.02); 
+            xstr += xstr0 + "margin-top:" + (y0 - foo(x)*ey) + "px;margin-left:" + (x0 + x*ex) + "px'>";
+            //line(x0,y0,x*ex,y*ey,(x+0.01)*ex,foo(x+0.01)*ey);
+            
+            x += 0.02; 
+        } 
+            document.write(xstr); 
+    }
+    function draw_grid(x0,y0,yxk){
+        line(x0,y0,-200,0,200,0);
+        line(x0,y0,0,-200,0,200);
+        for(var i = -3; i<=3; i++){
+            if(i == 0){
+                continue;
+            }
+            dot_dash_Line(x0,y0,-200,(400/6)*i,200,(400/6)*i);
+            dot_dash_Line(x0,y0,((400/6)*i)/yxk,-200,((400/6)*i)/yxk,200);
+        }
+    }
+    function dot_dash_Line(x0,y0,x1,y1,x2,y2){
+        var xstr = ""; 
+        var xstr0 = "<img src='pixel.png' width=1 height=1 style='position:absolute;";
+        if(x2 - x1 == 0){
+            var y = y1;
+            while(y <= y2){
+                if(y%6 != 0 && (y+2)%6 != 0){
+                    xstr += xstr0 + "margin-top:" + (y0 - y) + "px; margin-left:" + (x0 + x1) +"px'>";
+                }
+                y++;
+            }
+        }
+        else{
+            var k = (y2 - y1) / (x2 - x1); 
+            var x = x1; 
+            while (x <= x2) {
+                if(x%6 != 0 && (x+2)%6 != 0)
+                {
+                    xstr += xstr0 + "margin-top:" + (y0 - (k * (x) + y1)) + "px;margin-left:" + (x0+x) + "px'>"; 
+                } 
+                x++; 
+            }
+        }
+        document.write(xstr);
+    }
+    function linev(x, y1, y2) {
+        var xstr = ""; 
+        //var xstr0 = "<img src='pixel.png' width=1 height=1 style='position:absolute;";
+        var xstr0 = "<div style='position:absolute;"; 
+        var y = y1; while (y <= y2) { 
+            xstr += xstr0 + "margin-top:" + (y) + "px;margin-left:" + x + "px'>.</div>"; 
+            y++; 
+        } 
+        document.write(xstr);
+    }
+    function line(x0,y0,x1, y1, x2, y2) {
+        var xstr = ""; 
+        var xstr0 = "<img src='pixel.png' width=1 height=1 style='position:absolute;";
+        if(x2 - x1 == 0){
+            var y = y1;
+            while(y <= y2){
+                xstr += xstr0 + "margin-top:" + (y0 - y) + "px; margin-left:" + (x0 + x1) +"px'>";
+                y++;
+            }
+        }
+        else{
+            var k = (y2 - y1) / (x2 - x1); 
+            var x = x1; 
+            while (x <= x2) { 
+                xstr += xstr0 + "margin-top:" + (y0 - (k * (x) + y1)) + "px;margin-left:" + (x0+x) + "px'>"; 
+                x++; 
+            }
+        }
+        
+        document.write(xstr);
+    }
+    function getUrlParameter(sParam) { 
+        var sPageURL = decodeURIComponent(window.location.search.substring(1)), sURLVariables = sPageURL.split('&'), sParameterName, i; 
+        for (i = 0; i < sURLVariables.length; i++) { 
+            sParameterName = sURLVariables[i].split('='); 
+            if (sParameterName[0] === sParam) { 
+                return sParameterName[1] === undefined ? false : sParameterName[1]; 
+            } 
+        } 
+    }
+</script>
+</html>

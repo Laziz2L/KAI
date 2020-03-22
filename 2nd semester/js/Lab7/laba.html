@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <style>
+	table {
+	border-collapse: collapse;
+	border: 3px solid black;
+	color: #006400;
+    }
+    td {
+        border-bottom: 2px solid lightgray; 
+        border-left: 2px solid lightgray; 
+
+    }
+    </style>
+</head>
+<body>
+    <table border="1">
+        <tr>
+            <td><b id="dam">День, месяц и год</b></td><td id="day_month_year"></td>
+        </tr>
+        <tr>
+            <td><b id="dow">День недели</b></td><td id="week"></td>
+        </tr>
+    </table>
+    <hr>
+    <p id= "sesstart">Сессия начинается 16 июня</p>
+    <p id="days_left">До начала сессии <span id="sessbef"></span> дней<p>
+    <hr>
+    <button onclick="important_date_func();" id="imp">Важная дата</button>
+    <p id="data">Дней прошло : <input id="amount_of_days"/></p>
+    <hr>
+    <p id="cel">Последовательность: 1+(-2)^n</p>
+    <p id="first">Введите значение первого члена n <input type="text" id="n"/></p>
+    <p id="cnt">Введите кол-во слагаемых k <input type="text" id="k"/></p>
+    <button id="zad" onclick="members_of_the_sequence();">Cчитать</button><br>
+    <p id="your">Ваша последовательность: <input type="text" disabled="" id="sequence"/></p>
+    <p id="amount">Сумма заданного количества членов числовой последовательности: <input type="text" disabled="" id="sum"/></p>
+    <hr>
+	<div style="position:absolute;">
+    <textarea  placeholder="enter text to search" id="toSearch" wrap="off" cols="30" rows="5"></textarea>
+    <input id="ad" type="button" value="Абдуллаев" onclick="searchFunc()"></input>
+    <div id="found"></div>
+	<input id="sw" type="button" value="Switch language" onclick="new function(){ui.lang.switchLanguage(ui.lang.current=='ru'?'eng':'ru');}"></input>
+
+<script type="text/javascript">
+    function print(msg) {document.write(msg + "<br>");}
+</script>
+<script type="text/javascript" src="Module.js"></script>
+<script type="text/javascript" src="script.js"></script>
+</body>
+</html>

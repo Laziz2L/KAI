@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8"><title>Лабораторная работа №3</title>
+	<link href="Source/style.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+    Сегодняшняя дата:<br>
+    <table>
+			<tr>
+				<td>Число, месяц и год:</td>
+				<td><p id="date"></p></td>
+			</tr>
+			<tr>
+				<td>День недели:</td>
+				<td><p id="dow"></p></td>
+			</tr>
+    </table>
+    <hr>
+	До сессии осталось (дней):<br>
+    <p id="Session"></p>
+	<hr>
+    <input type="button" value="Важная дата" onclick="memDate();"/>
+    <input  type="text" id="ago"/>
+	<hr>
+    Номер первого члена k=<input type="text" value="1" id="k"/><br>
+	Количество членов последовательности n=<input type="text" value="1" id="n"/><br>
+	<input type="button" value="Клик" onclick="countUp();"/>
+	<input type="text" disabled="" id="result"/>
+    
+    <script src="Source/script.js"></script>
+</body>
+</html>

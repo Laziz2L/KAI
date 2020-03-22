@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Lab5</title>
+    <style>
+        .card{
+            width: 200px;
+            height: 300px;
+            border-radius: 10px;
+            background-color: crimson;
+            color: greenyellow;
+            text-align: center;
+            font-family: Calibri;
+            font-size: 22px;
+            background-size: 200px 300px;
+        }
+        .push{
+            width: 200px;
+            height: 50px;
+            position: relative;
+            left: 500px;
+        }
+
+/*
+       body{
+            background-image: url(fon.jpg);
+        }
+*/
+
+    </style>
+</head>
+<body>
+<div>
+    <input class="card" type="text" id="card1" disabled="">
+    <input class="card" type="text" id="card2" disabled="">
+    <input class="card" type="text" id="card3" disabled="">
+    <input class="card" type="text" id="card4" disabled="">
+    <input class="card" type="text" id="card5" disabled="">
+</div>
+<br>
+Результат : <input type="text" id="result" disabled=""> 
+<br>
+<input class="push" type="button" onclick="game()" value="Начать игру">
+<br>
+<script>
+    var ranks=["Двойка","Тройка", "Четвёрка", "Пятёрка", "Шестёрка", "Семёрка",
+        "Восьмёрка", "Девятка", "Десятка", "Валет", "Дама", "Король", "Туз"];
+    var suits=["Пик", "Треф", "Червей", "Бубен"];
+    var hand = [
+        {"rank": null, "suit": null, "rankint": null},
+        {"rank": null, "suit": null, "rankint": null},
+        {"rank": null, "suit": null, "rankint": null},
+        {"rank": null, "suit": null, "rankint": null},
+        {"rank": null, "suit": null, "rankint": null}
+        ];
+    
+    var hand2=[
+		{"rank": "Двойка", "suit": "Червей", "rankint": 2},
+		{"rank": "Двойка", "suit": "Треф", "rankint": 2},
+		{"rank": "Двойка", "suit": "Пик", "rankint": 2},
+		{"rank": "Тройка", "suit": "Пик", "rankint": 3},
+		{"rank": "Тройка", "suit": "Бубен", "rankint": 3}
+        ];	
+    var hand3=[
+		{"rank": "Десятка", "suit": "Пик", "rankint": 10},
+		{"rank": "Валет", "suit": "Пик", "rankint": 11},
+		{"rank": "Король", "suit": "Пик", "rankint": 13},
+		{"rank": "Дама", "suit": "Пик", "rankint": 12},
+		{"rank": "Туз", "suit": "Пик", "rankint": 14}
+        ];	
+    
+    function randomDistrib() {
+        var i=0;
+        while(i<5) {
+            var randRank = Math.floor(Math.random() * ranks.length);
+            var randSuit = Math.floor(Math.random() * suits.length);
+            if (!checkCardInHand(randRank, randSuit)) {
+                hand[i].rank = ranks[randRank];
+                hand[i].suit = suits[randSuit];
+                hand[i].rankint = randRank+2;
+                i++;
+            }
+
+        }
+        for(var i=1; i<=5; i++)
+        {
+            var str="card" + i;
+            document.getElementById(str).value=hand[i-1].rank;
+            if(hand[i-1].suit === "Пик")
+            {
+                document.getElementById(str).style="background-image: url(Пик.png);";
+            }
+            if(hand[i-1].suit === "Червей")
+            {
+                document.getElementById(str).style="background-image: url(Червей.jpg);";
+            }
+            if(hand[i-1].suit === "Треф")
+            {
+                document.getElementById(str).style="background-image: url(Треф.png);";
+            }
+            if(hand[i-1].suit === "Бубен")
+            {
+                document.getElementById(str).style="background-image: url(Бубен.png);";
+            }
+
+        }
+
+
+    }
+    function  checkCardInHand(randRank, randSuit) {
+        for(var i=0; i<5; i++)
+        {
+            if(hand[i].rank === ranks[randRank] && hand[i].suit === suits[randSuit]) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    function checkcomb() {
+        var sortedranks = hand2.map(function ranktos(cards){
+                return cards.rankint;
+            })
+        sortedranks.sort(function(a,b){
+            return a-b;
+        });
+        var diff = sortedranks[4] - sortedranks[0];
+        var pair = false;
+        var three = false;
+        var flush = false;
+        var straight = false;
+        for(var i=0; i<13; i++)
+		{
+			if(containsNTimes(hand2, ranks[i], 3))
+			{
+				delete ranks[i]; 
+				three=true;
+				break;
+			}
+		}
+        for(i=0; i<13; i++)
+		{
+			if(containsNTimes(hand2, ranks[i], 2))
+			{ 
+				pair=true;
+				break;
+			}
+		}
+        for(i=0; i<4; i++)
+		{
+			if(containsNTimesForSuits(hand2, suits[i], 5))
+			{ 
+				flush=true;
+				break;
+			}
+		}
+        if (!pair) {
+            if (sortedranks[4]==14) {
+                if (sortedranks[0]==10 || sortedranks[3]==5) {
+                    straight = true;
+                }
+            }else if (diff==4) {
+                straight = true;
+            }
+        }
+//        console.log(pair);
+//        console.log(three);
+//        console.log(flush);
+//        console.log(straight);
+        
+        if (pair&&three) {
+            return "Фулл-Хаус";
+        }else if (flush&&straight) {
+            return "Стрит-Флеш";
+        }else {
+            return "Нет игры";
+        }
+    }
+    
+    function containsNTimes(hand, rank, n) {
+		 var count = 0;
+		 for (var i = 0; i < 5; i++)
+			if (hand[i].rank == rank) count++;
+		 return n <= count ? true : false;
+	}
+    
+    function containsNTimesForSuits(hand, suit, n) {
+		 var count = 0;
+		 for (var i = 0; i < 5; i++)
+			if (hand[i].suit == suit) count++;
+		 return n <= count ? true : false;
+	}
+    
+    function game() {
+        try{
+            randomDistrib();
+//            checkcomb();
+            document.getElementById("result").value=checkcomb();
+        }catch (e) {
+            console.log(e.message);
+        }
+        finally {
+            console.log("Нажмите 'Начать игру'");
+        }
+    }
+</script>
+</body>
+</html>

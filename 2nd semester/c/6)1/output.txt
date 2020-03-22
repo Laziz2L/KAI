@@ -1,0 +1,5 @@
+[1] Frolov Vasiliy Gennadievich Doctor Moskow
+[2] Kislyak Ivan Ivanovich Actor Novgorod
+[3] Makeev Sergey Petrovich Coach Moscow
+[4] Makeev Vlad Sergeevich Actor Kazan
+[5] Petrova Mariya Ivanovna Teacher Ololoevo

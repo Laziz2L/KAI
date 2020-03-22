@@ -1,0 +1,6 @@
+﻿  ConsoleApplication2.cpp
+c:\users\lazzi\desktop\программирование\c++ comp gf\consoleapplication2\consoleapplication2\consoleapplication2.cpp(108): warning C4305: инициализация: усечение из "double" в "GLfloat"
+c:\users\lazzi\desktop\программирование\c++ comp gf\consoleapplication2\consoleapplication2\consoleapplication2.cpp(126): warning C4244: аргумент: преобразование "GLfloat" в "GLsizei", возможна потеря данных
+c:\users\lazzi\desktop\программирование\c++ comp gf\consoleapplication2\consoleapplication2\consoleapplication2.cpp(127): warning C4244: аргумент: преобразование "GLfloat" в "GLsizei", возможна потеря данных
+c:\users\lazzi\desktop\программирование\c++ comp gf\consoleapplication2\consoleapplication2\consoleapplication2.cpp(166): warning C4326: возвращаемый тип "main" должен быть "int", а не "void"
+  ConsoleApplication2.vcxproj -> C:\Users\lazzi\Desktop\программирование\C++ comp gf\ConsoleApplication2\Debug\ConsoleApplication2.exe

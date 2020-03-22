@@ -1,0 +1,6 @@
+﻿  ConsoleApplication1.cpp
+c:\users\lazzi\desktop\программирование\c++ comp gf\consoleapplication1\consoleapplication1\consoleapplication1.cpp(12): warning C4326: возвращаемый тип "main" должен быть "int", а не "void"
+c:\users\lazzi\desktop\программирование\c++ comp gf\consoleapplication1\consoleapplication1\consoleapplication1.cpp(25): warning C4305: аргумент: усечение из "double" в "GLclampf"
+c:\users\lazzi\desktop\программирование\c++ comp gf\consoleapplication1\consoleapplication1\consoleapplication1.cpp(32): warning C4305: инициализация: усечение из "double" в "GLfloat"
+c:\users\lazzi\desktop\программирование\c++ comp gf\consoleapplication1\consoleapplication1\consoleapplication1.cpp(43): warning C4305: аргумент: усечение из "double" в "GLfloat"
+  ConsoleApplication1.vcxproj -> C:\Users\lazzi\Desktop\программирование\C++ comp gf\ConsoleApplication1\Debug\ConsoleApplication1.exe
