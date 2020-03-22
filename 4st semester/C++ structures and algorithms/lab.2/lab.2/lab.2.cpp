@@ -41,6 +41,7 @@ struct Fifo {
 			printf("Queue is empty!\n");
 			return;
 		}
+		printf("Queue :\n");
 		int cur = First;
 		for (int i = 0; i < count; i++) {
 			printf("%d\n", arr[cur]);
