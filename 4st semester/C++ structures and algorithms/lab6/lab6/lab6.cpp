@@ -55,17 +55,6 @@ struct List {
 		return NULL;
 	}
 
-	void push_to_end(int val) {
-		ListElement *add;
-		add->value = val;
-		add->next = NULL;
-		ListElement *cur = head;
-		while (cur->next != NULL) {
-			cur = cur->next;
-		}
-		cur->next = add;
-	}
-
 	void push_first() {
 		cout << "\nThe list is empty yet. Add first element:\n";
 		int val;
@@ -105,7 +94,7 @@ struct List {
 		ListElement *before_this;
 		cout << "\nEnter the element before which there will be an addition\n";
 		before_this = search_ptr();
-		if (before_this == 0) {
+		if (before_this == NULL) {
 			cout << "\nThere is no such element\n";
 			return;
 		}
@@ -189,7 +178,7 @@ int main() {
 			cout << "6 - Show the list (like stack) of deleted elements" << endl;
 			cout << "7 - Terminate the program" << endl;
 			input(&n);
-			if (n >= 1 && n <= 6) {
+			if (n >= 1 && n <= 7) {
 				flag = 0;
 			}
 		}
