@@ -1,0 +1,5 @@
+﻿  lab14.cpp
+c:\users\lazzi\desktop\программирование\c++ structures and algorithms\lab14\lab14\lab14.cpp(131): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+c:\users\lazzi\desktop\программирование\c++ structures and algorithms\lab14\lab14\lab14.cpp(131): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
+c:\users\lazzi\desktop\программирование\c++ structures and algorithms\lab14\lab14\lab14.cpp(145): warning C4244: =: преобразование "double" в "int", возможна потеря данных
+  lab14.vcxproj -> C:\Users\lazzi\Desktop\программирование\C++ structures and algorithms\lab14\Debug\lab14.exe
