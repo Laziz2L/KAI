@@ -1,0 +1,12 @@
+﻿  lab4.cpp
+c:\users\lazzi\desktop\программирование\c++ comp gf\lab4\lab4\lab4.cpp(367): warning C4305: аргумент: усечение из "double" в "GLfloat"
+c:\users\lazzi\desktop\программирование\c++ comp gf\lab4\lab4\lab4.cpp(378): warning C4305: аргумент: усечение из "double" в "GLfloat"
+c:\users\lazzi\desktop\программирование\c++ comp gf\lab4\lab4\lab4.cpp(389): warning C4305: аргумент: усечение из "double" в "GLfloat"
+c:\users\lazzi\desktop\программирование\c++ comp gf\lab4\lab4\lab4.cpp(400): warning C4305: аргумент: усечение из "double" в "GLfloat"
+c:\users\lazzi\desktop\программирование\c++ comp gf\lab4\lab4\lab4.cpp(418): warning C4305: инициализация: усечение из "double" в "GLfloat"
+c:\users\lazzi\desktop\программирование\c++ comp gf\lab4\lab4\lab4.cpp(420): warning C4305: инициализация: усечение из "double" в "GLfloat"
+c:\users\lazzi\desktop\программирование\c++ comp gf\lab4\lab4\lab4.cpp(422): warning C4305: инициализация: усечение из "double" в "GLfloat"
+c:\users\lazzi\desktop\программирование\c++ comp gf\lab4\lab4\lab4.cpp(424): warning C4305: инициализация: усечение из "double" в "GLfloat"
+c:\users\lazzi\desktop\программирование\c++ comp gf\lab4\lab4\lab4.cpp(479): warning C4305: =: усечение из "double" в "GLfloat"
+c:\users\lazzi\desktop\программирование\c++ comp gf\lab4\lab4\lab4.cpp(487): warning C4305: =: усечение из "double" в "GLfloat"
+  lab4.vcxproj -> C:\Users\lazzi\Desktop\программирование\C++ comp gf\lab4\Debug\lab4.exe
