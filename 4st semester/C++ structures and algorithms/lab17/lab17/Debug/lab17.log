@@ -1,0 +1,3 @@
+﻿  lab17.cpp
+c:\users\lazzi\desktop\программирование\c++ structures and algorithms\lab17\lab17\lab17.cpp(11): warning C4244: инициализация: преобразование "double" в "int", возможна потеря данных
+  lab17.vcxproj -> C:\Users\lazzi\Desktop\программирование\C++ structures and algorithms\lab17\Debug\lab17.exe
