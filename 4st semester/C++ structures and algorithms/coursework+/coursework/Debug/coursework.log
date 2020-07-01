@@ -1,2 +1,4 @@
-﻿  coursework.cpp
-  coursework.vcxproj -> C:\Users\lazzi\Desktop\программирование\C++ structures and algorithms\coursework\Debug\coursework.exe
+﻿  pch.cpp
+  coursework.cpp
+  LINK : не найден или не выполнена сборка C:\Users\lazzi\Desktop\kairepos\KAI\4st semester\C++ structures and algorithms\coursework+\Debug\coursework.exe при последней инкрементной компоновке; выполняется полная компоновка
+  coursework.vcxproj -> C:\Users\lazzi\Desktop\kairepos\KAI\4st semester\C++ structures and algorithms\coursework+\Debug\coursework.exe

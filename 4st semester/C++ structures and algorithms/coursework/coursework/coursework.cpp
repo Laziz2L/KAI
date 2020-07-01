@@ -1,260 +1,307 @@
 ﻿#define _CRT_SECURE_NO_WARNINGS
 #include <string>
 #include <iostream>
+#include <fstream>
+#include <Windows.h>
+#include "Railway.cpp"
 using namespace std;
 
-void int_input(int *in) {
-	int flag = 1;
-	while (flag) {
-		cout << "Enter the number\n";
-		if (cin >> *in)
-			flag = 0;
-		cin.clear();
-		cin.ignore(32767, '\n');
+bool Read(Railway*& rway) {
+
+	/*if (rway != nullptr) {
+		cout << "База данных будет очищена.\n1 - Продолжить\n2 - Отменить\n";
+		int action;
+		int_input(&action);
+		if (action == 1) {
+			delete rway;
+			rway = nullptr;
+		}
+		else {
+			return false;
+		}
+	}*/
+
+	string path = "file.txt";
+	ifstream fin;
+
+	try { fin.open(path, ios::in); }
+	catch (const ofstream::failure) {
+		cerr << "Не удалось открыть файл." << endl;
+		return false;
 	}
+	if (!fin) {
+		cout << "Файл не найден." << endl;
+		return false;
+	}
+
+	string InStr;
+	string SDNum;
+	string Name;
+	string Line;
+	string Mark;
+	int DNum;
+	int RegNum;
+	int d_count = 0;
+	int t_count = 0;
+
+	getline(fin, InStr);
+	while (fin && InStr != "/Железная дорога") {
+		if (InStr == "Железная дорога") {
+			getline(fin, Name);
+			if (!issp(Name[0])) {
+				rway = new Railway(Name);
+			}
+			else {
+				cout << "Ошибка при чтении файла. Неверно задано название железной дороги (первый символ пробельный).";
+				delete rway;
+				rway = nullptr;
+				return false;
+			}
+		}
+		else if (InStr == "Депо") {
+			if (rway == nullptr) {
+				cout << "Ошибка при чтении файла. Не задано название железной дороги" << endl;
+				return false;
+			}
+			getline(fin, SDNum);
+			if (SDNum == "") {
+				cout << "Ошибка при чтении файла. Не задан номер депо.";
+					delete rway;
+					rway = nullptr;
+					return false;
+			}
+			for (int i = 0; i < SDNum.length(); i++) {
+				if (!isdigit(SDNum[i])) {
+					cout << "Ошибка при чтении файла. Неверно задан номер депо.";
+					delete rway;
+					rway = nullptr;
+					return false;
+				}
+			}
+			DNum = stoi(SDNum);
+			d_count++;
+			if (d_count > railway_len) {
+				cout << "Ошибка при чтении файла. Неверное количество депо." << endl;
+				delete rway;
+				rway = nullptr;
+				return false;
+			}
+			t_count = 0;
+			rway->push_depot(DNum);
+			getline(fin, Line);
+			while (Line == "") getline(fin, Line);
+			while (Line != "/Депо" && fin)
+			{
+				if (Line == "Депо") {
+					cout << "Ошибка при чтении файла. Неверно заданы теги." << endl;
+					delete rway;
+					rway = nullptr;
+					return false;
+				}
+				string buffer;
+				for (unsigned int i = 0; i < Line.length(); i++) {
+					if (Line[i] != '-') {
+						buffer += Line[i];
+					}
+					else {
+						Mark = buffer;
+						buffer = "";
+						for (unsigned int j = i + 1; j < Line.length(); j++) {
+							buffer += Line[j];
+						}
+						SDNum = buffer;
+					}
+				}
+				/*for (unsigned int i = 0; i < Mark.length(); i++) {
+					if (Mark[i] == ' ') {
+						Mark.erase(i, 1);
+						i--;
+					}
+				}*/
+				while (Mark[0] == ' ') {
+					Mark.erase(0, 1);
+				}
+				/*while (Mark[Mark.length() - 1] == ' ') {
+					Mark.erase(Mark.length() - 1, 1);
+				}*/
+				while (SDNum[0] == ' ')
+				{
+					SDNum.erase(0, 1);
+				}
+				if (Mark == "") {
+					cout << "Ошибка при чтении марки электровоза." << endl;
+					delete rway;
+					rway = nullptr;
+					return false;
+				}
+				if (SDNum == "") {
+					cout << "Ошибка при чтении регистрационного номера электровоза." << endl;
+					delete rway;
+					rway = nullptr;
+					return false;
+				}
+				try {
+					RegNum = stoi(SDNum);
+				}
+				catch (...) {
+					cout << "Ошибка при чтении файла. Неверно задан регистрационный номер электровоза." << endl;
+					delete rway;
+					rway = nullptr;
+					return false;
+				}
+				t_count++;
+				if (t_count > depot_len) {
+					cout << "Ошибка при чтении файла. Неверное количество электровозов в депо с номером " << DNum << endl;
+					delete rway;
+					rway = nullptr;
+					return false;
+				}
+				if (RegNum == NULL || Mark == "") {
+					cout << "Ошибка при чтении файла. Неправильно объявлены теги." << endl;
+					if (rway != nullptr) {
+						delete rway;
+						rway = nullptr;
+					}
+					return false;
+				}
+				rway->push_train(DNum, RegNum, Mark);
+				RegNum = NULL;
+				Mark = "";
+				getline(fin, Line);
+			}
+		}
+		else {
+			cout << "Ошибка при чтении файла. Неправильно объявлены теги." << endl;
+			if (rway != nullptr) {
+				delete rway;
+				rway = nullptr;
+			}
+			return false;
+		}
+		getline(fin, InStr);
+	}
+	fin.close();
+	cout << "Структура успешно загружена." << endl;
+	return true;
 }
 
-int depot_len = 3;
-
-struct Train {
-	int reg_num;
-	string mark;
-};
-
-struct Depot {
-	Train* t_arr;
-	int len;
-	int count;
-	int d_num;
-	
-	Depot() {
-		t_arr = new Train[depot_len];
-		len = depot_len;
-		count = 0;
-	}
-
-	Depot(int d_num) {
-		t_arr = new Train[depot_len];
-		len = depot_len;
-		count = 0;
-		this->d_num = d_num;
-	}
-
-	void push(int reg_num, string mark) {
-		if (count == len) {
-			cout << "Wasn't pushed. This depot is full\n";
-			return;
-		}
-		if (count == 0) {
-			t_arr[0].reg_num = reg_num;
-			t_arr[0].mark = mark;
-			++count;
-			return;
-		}
-		int cur = 0;
-		while (t_arr[cur].reg_num <= reg_num && cur < count) {
-			++cur;
-		}
-		for (int i = count; i > cur; i--) {
-			t_arr[i] = t_arr[i - 1];
-		}
-		t_arr[cur].reg_num = reg_num;
-		t_arr[cur].mark = mark;
-		++count;
-	}
-
-	int search(int reg_num) {
-		for (int i = 0; i < count; i++) {
-			if (t_arr[i].reg_num == reg_num) {
-				return i+1;
-			}
-		}
-		return 0;
-	}
-
-	void pop(int ind) {
-		if (ind < 0) {
-			cout << "There is no such train\n";
-			return;
-		}
-		for (int i = ind;i < count - 1; i++) {
-			t_arr[i] = t_arr[i + 1];
-		}
-		--count;
-	}
-
-	void show() {
-		if (count == 0) {
-			cout << "\t\tThis depot is empty\n";
-			return;
-		}
-		for (int i = 0; i < count; i++) {
-			cout << "\t\tRegistration number: " << t_arr[i].reg_num;
-			cout << "\tMark: " << t_arr[i].mark << endl;
-		}
-	}
-};
-
-struct Railway {
-	Depot* d_arr;
-	int count;
-	int len;
-	string name;
-
-	Railway(int len, string name) {
-		d_arr = new Depot[len];
-		this->len = len;
-		count = 0;
-		this->name = name;
-	}
-
-	void push_depot() {
-		if (count == len) {
-			cout << "\nRailway is full!\n";
-			return;
-		}
-		int d_num;
-		cout << "\nEnter the depot number\n";
-		int_input(&d_num);
-		Depot add = Depot(d_num);
-		d_arr[count] = add;
-		++count;
-	}
-
-	void pop_depot() {
-		if (count == 0) {
-			cout << "\nRailway is empty!\n";
-			return;
-		}
-		--count;
-		d_arr[count] = Depot();
-	}
-
-	void push_train() {
-		if (count == 0) {
-			cout << "\nRailway is empty!\n";
-			return;
-		}
-		int d_num;
-		cout << "\nEnter the depot number to which you want to add the train\n";
-		int_input(&d_num);
-		for (int i = 0; i < count; i++) {
-			if (d_arr[i].d_num == d_num) {
-				int reg_num;
-				string mark;
-				cout << "Enter the registration number of new train\n";
-				int_input(&reg_num);
-				cout << "Enter the mark of new train\n";
-				cin >> mark;
-				d_arr[i].push(reg_num, mark);
-				return;
-			}
-		}
-		cout << "There is no such depot in the railway\n";
-	}
-
-	void pop_train() {
-		if (count == 0) {
-			cout << "\nRailway is empty!\n";
-			return;
-		}
-		int d_num;
-		cout << "\nEnter the depot number in which you want to delete the train\n";
-		int_input(&d_num);
-		for (int i = 0; i < count; i++) {
-			if (d_arr[i].d_num == d_num) {
-				int reg_num;
-				cout << "Enter the registration number of train that you want to delete\n";
-				int_input(&reg_num);
-				d_arr[i].pop(d_arr[i].search(reg_num) - 1);
-				return;
-			}
-		}
-		cout << "There is no such depot in the railway\n";
-	}
-
-	void search_train() {
-		if (count == 0) {
-			cout << "\nRailway is empty!\n";
-			return;
-		}
-		int reg_num;
-		cout << "\nEnter registration number which you want to search\n";
-		int_input(&reg_num);
-		int cur = 0;
-		for (int i = 0;i < count; i++) {
-			cur = d_arr[i].search(reg_num);
-			if (cur != 0) {
-				cout << "Train with registration number " << reg_num;
-				cout << " is located in depot with number " << d_arr[i].d_num;
-				cout << " on position" << cur;
-				cout << ", his mark is " << d_arr[i].t_arr[cur - 1].mark << endl;
-				return;
-			}
-		}
-		cout << "There is no such train\n";
-	}
-
-	void show() {
-		cout << endl << name << ":\n";
-		if (count == 0) {
-			cout<< "\tRailway is empty!\n";
-			return;
-		}
-		for (int i = 0; i < count; i++) {
-			cout << "\tDepot with number " << d_arr[i].d_num << ":\n";
-			d_arr[i].show();
-		}
-	}
-};
-
 int main() {
-	string name;
-	int length;
-	cout << "Enter the name of your railway\n";
-	cin >> name;
-	cout << "How many depots does your railway can hold? ";
-	int_input(&length);
-	Railway rway = Railway(length, name);
-	int flag;
-	int n;
+	SetConsoleCP(1251);
+	SetConsoleOutputCP(1251);
+	setlocale(LC_ALL, "RUS");
+
+	Railway *rway = nullptr;
+	bool flag = true;
+	int n;	
+	
 	while (true) {
 		flag = 1;
-		while (flag) {
-			cout << "\nChoose the action and enter its number" << endl;
-			cout << "1 - Show" << endl;
-			cout << "2 - Search train" << endl;
-			cout << "3 - Add new depot" << endl;
-			cout << "4 - Delete depot" << endl;
-			cout << "5 - Add new train" << endl;
-			cout << "6 - Delete train" << endl;
-			cout << "7 - Terminate the program" << endl;
+		while (flag) { 
+			cout << "\nВыберите действие и введите номер" << endl;
+			cout << "1 - Показать структуру" << endl;
+			cout << "2 - Поиск электровоза" << endl;
+			cout << "3 - Добавить депо" << endl;
+			cout << "4 - Удалить депо" << endl;
+			cout << "5 - Добавить электровоз" << endl;
+			cout << "6 - Удалить электровоз" << endl;
+			cout << "7 - Записать структуру в файл" << endl;
+			cout << "8 - Новая структура" << endl;
+			cout << "9 - Завершение работы" << endl;
 			int_input(&n);
-			if (n >= 1 && n <= 7) {
+			if (n >= 1 && n <= 9) {
 				flag = 0;
 			}
 		}
 		switch (n) {
 		case 1:
-			rway.show();
+			if (rway == nullptr) {
+				cout << "Структура не создана!" << endl;
+			}
+			else rway->show();
 			break;
 		case 2:
-			rway.search_train();
+			if (rway == nullptr) {
+				cout << "Структура не создана!" << endl;
+			}
+			else rway->search_train();
 			break;
 		case 3:
-			rway.push_depot();
+			if (rway == nullptr) {
+				cout << "Структура не создана!" << endl;
+			}
+			else rway->push_depot();
 			break;
 		case 4:
-			rway.pop_depot();
+			if (rway == nullptr) {
+				cout << "Структура не создана!" << endl;
+			}
+			else rway->pop_depot();
 			break;
 		case 5:
-			rway.push_train();
+			if (rway == nullptr) {
+				cout << "Структура не создана!" << endl;
+			}
+			else rway->push_train();
 			break;
 		case 6:
-			rway.pop_train();
+			if (rway == nullptr) {
+				cout << "Структура не создана!" << endl;
+			}
+			else rway->pop_train();
 			break;
 		case 7:
-			return 0;
+			if (rway == nullptr) {
+				cout << "Структура не создана!" << endl;
+			}
+			else rway->Write();
+			break;
+		case 8:
+			if (rway != nullptr) {
+				int action = 0;
+				while (action != 1 && action != 2) {
+					cout << "\nБаза данных будет очищена.\n1 - Продолжить\n2 - Отменить\n";
+					int_input(&action);
+				}
+				if (action == 1) {
+					delete rway;
+					rway = nullptr;
+				}
+				else {
+					break;
+				}
+			}
+			while (1) { //просим выбрать метод ввода структуры, пока не введет 1 или 2
+				flag = true;
+				while (flag) {
+					cout << "\nВыберите действие и введите номер" << endl;
+					cout << "1 - Загрузить структуру из файла" << endl;
+					cout << "2 - Создать новую" << endl;
+					int_input(&n); //описание этой функции есть в Railway.cpp
+					if (n >= 1 && n <= 2) {
+						flag = 0;
+					}
+				}
+				if (n == 1) {
+					if (Read(rway)) break;
+					else {
+						cout << endl;
+						break;
+					}
+				}
+				else if (n == 2) { //ввод из консоли
+					string name;
+					cout << "\nВведите название железной дороги\n";
+					//getline(cin, name);
+					string_input(&name);
+					rway = new Railway(name);
+					break;
+				}
+			}
+			break;
+		case 9:
+			delete rway;
+			rway = nullptr;
+			exit(1);
 			break;
 		}
 	}
