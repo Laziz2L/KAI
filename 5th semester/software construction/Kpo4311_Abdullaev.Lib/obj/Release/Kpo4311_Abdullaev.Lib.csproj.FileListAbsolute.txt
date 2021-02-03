@@ -1,0 +1,11 @@
+C:\Users\lazzi\Desktop\КПО\Kpo4311_Abdullaev4\Kpo4311_Abdullaev.Lib\bin\Release\Kpo4311_Abdullaev.Lib.dll
+C:\Users\lazzi\Desktop\КПО\Kpo4311_Abdullaev4\Kpo4311_Abdullaev.Lib\bin\Release\Kpo4311_Abdullaev.Lib.pdb
+C:\Users\lazzi\Desktop\КПО\Kpo4311_Abdullaev4\Kpo4311_Abdullaev.Lib\bin\Release\Castle.Core.dll
+C:\Users\lazzi\Desktop\КПО\Kpo4311_Abdullaev4\Kpo4311_Abdullaev.Lib\bin\Release\Castle.Windsor.dll
+C:\Users\lazzi\Desktop\КПО\Kpo4311_Abdullaev4\Kpo4311_Abdullaev.Lib\bin\Release\Castle.Core.xml
+C:\Users\lazzi\Desktop\КПО\Kpo4311_Abdullaev4\Kpo4311_Abdullaev.Lib\bin\Release\Castle.Windsor.xml
+C:\Users\lazzi\Desktop\КПО\Kpo4311_Abdullaev4\Kpo4311_Abdullaev.Lib\obj\Release\Kpo4311_Abdullaev.Lib.csprojAssemblyReference.cache
+C:\Users\lazzi\Desktop\КПО\Kpo4311_Abdullaev4\Kpo4311_Abdullaev.Lib\obj\Release\Kpo4311_Abdullaev.Lib.csproj.CoreCompileInputs.cache
+C:\Users\lazzi\Desktop\КПО\Kpo4311_Abdullaev4\Kpo4311_Abdullaev.Lib\obj\Release\Kpo4311_Abdullaev.Lib.csproj.CopyComplete
+C:\Users\lazzi\Desktop\КПО\Kpo4311_Abdullaev4\Kpo4311_Abdullaev.Lib\obj\Release\Kpo4311_Abdullaev.Lib.dll
+C:\Users\lazzi\Desktop\КПО\Kpo4311_Abdullaev4\Kpo4311_Abdullaev.Lib\obj\Release\Kpo4311_Abdullaev.Lib.pdb

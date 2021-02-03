@@ -1,0 +1,10 @@
+C:\Users\lazzi\Desktop\КПО\Kpo4311_Abdullaev\Kpo4311_Abdullaev\bin\Debug\Kpo4311_Abdullaev.Main.exe.config
+C:\Users\lazzi\Desktop\КПО\Kpo4311_Abdullaev\Kpo4311_Abdullaev\bin\Debug\Kpo4311_Abdullaev.Main.exe
+C:\Users\lazzi\Desktop\КПО\Kpo4311_Abdullaev\Kpo4311_Abdullaev\bin\Debug\Kpo4311_Abdullaev.Main.pdb
+C:\Users\lazzi\Desktop\КПО\Kpo4311_Abdullaev\Kpo4311_Abdullaev\obj\Debug\Kpo4311_Abdullaev.csprojAssemblyReference.cache
+C:\Users\lazzi\Desktop\КПО\Kpo4311_Abdullaev\Kpo4311_Abdullaev\obj\Debug\Kpo4311_Abdullaev.FrmMain.resources
+C:\Users\lazzi\Desktop\КПО\Kpo4311_Abdullaev\Kpo4311_Abdullaev\obj\Debug\Kpo4311_Abdullaev.Main.Properties.Resources.resources
+C:\Users\lazzi\Desktop\КПО\Kpo4311_Abdullaev\Kpo4311_Abdullaev\obj\Debug\Kpo4311_Abdullaev.csproj.GenerateResource.cache
+C:\Users\lazzi\Desktop\КПО\Kpo4311_Abdullaev\Kpo4311_Abdullaev\obj\Debug\Kpo4311_Abdullaev.csproj.CoreCompileInputs.cache
+C:\Users\lazzi\Desktop\КПО\Kpo4311_Abdullaev\Kpo4311_Abdullaev\obj\Debug\Kpo4311_Abdullaev.Main.exe
+C:\Users\lazzi\Desktop\КПО\Kpo4311_Abdullaev\Kpo4311_Abdullaev\obj\Debug\Kpo4311_Abdullaev.Main.pdb
